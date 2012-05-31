@@ -2,6 +2,9 @@
 <project source="2.7.1" version="1.0">
 This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
 <lib desc="#Wiring" name="0">
+    <tool name="Tunnel">
+      <a name="facing" val="north"/>
+    </tool>
     <tool name="Clock">
       <a name="facing" val="north"/>
     </tool>
@@ -16,7 +19,13 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
   </lib>
   <lib desc="#Plexers" name="2"/>
   <lib desc="#Arithmetic" name="3"/>
-  <lib desc="#Memory" name="4"/>
+  <lib desc="#Memory" name="4">
+    <tool name="ROM">
+      <a name="contents">addr/data: 8 8
+0
+</a>
+    </tool>
+  </lib>
   <lib desc="#I/O" name="5"/>
   <lib desc="#Base" name="6">
     <tool name="Text Tool">
@@ -48,7 +57,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     </tool>
     <sep/>
     <tool lib="0" name="Pin">
-      <a name="facing" val="south"/>
       <a name="tristate" val="false"/>
     </tool>
     <tool lib="0" name="Pin">
@@ -67,12 +75,32 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <a name="clabel" val=""/>
     <a name="clabelup" val="east"/>
     <a name="clabelfont" val="SansSerif plain 12"/>
-    <comp lib="1" loc="(230,240)" name="Buffer"/>
+    <wire from="(90,200)" to="(100,200)"/>
+    <wire from="(170,130)" to="(170,140)"/>
+    <wire from="(190,110)" to="(220,110)"/>
+    <comp lib="4" loc="(360,110)" name="ROM">
+      <a name="addrWidth" val="5"/>
+      <a name="contents">addr/data: 5 8
+0
+</a>
+    </comp>
+    <comp lib="0" loc="(100,200)" name="Tunnel">
+      <a name="label" val="Reset"/>
+    </comp>
+    <comp lib="0" loc="(90,200)" name="Pin">
+      <a name="tristate" val="false"/>
+      <a name="label" val="Reset"/>
+    </comp>
+    <comp loc="(190,110)" name="instr_counter"/>
+    <comp lib="0" loc="(170,140)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="Reset"/>
+    </comp>
   </circuit>
   <circuit name="RAM_module">
     <a name="circuit" val="RAM_module"/>
-    <a name="clabel" val=""/>
-    <a name="clabelup" val="east"/>
+    <a name="clabel" val="RAM"/>
+    <a name="clabelup" val="north"/>
     <a name="clabelfont" val="SansSerif plain 12"/>
     <wire from="(380,330)" to="(450,330)"/>
     <wire from="(380,320)" to="(380,330)"/>
@@ -133,11 +161,13 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
   </circuit>
   <circuit name="instr_counter">
     <a name="circuit" val="instr_counter"/>
-    <a name="clabel" val=""/>
-    <a name="clabelup" val="east"/>
+    <a name="clabel" val="IC"/>
+    <a name="clabelup" val="north"/>
     <a name="clabelfont" val="SansSerif plain 12"/>
     <wire from="(260,180)" to="(260,190)"/>
+    <wire from="(160,120)" to="(180,120)"/>
     <wire from="(260,190)" to="(270,190)"/>
+    <wire from="(180,120)" to="(180,150)"/>
     <wire from="(200,150)" to="(200,170)"/>
     <wire from="(200,170)" to="(210,170)"/>
     <wire from="(270,190)" to="(270,200)"/>
@@ -145,10 +175,14 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(160,160)" to="(240,160)"/>
     <wire from="(230,170)" to="(240,170)"/>
     <wire from="(240,190)" to="(250,190)"/>
-    <wire from="(200,110)" to="(200,150)"/>
+    <wire from="(180,150)" to="(200,150)"/>
     <wire from="(240,190)" to="(240,200)"/>
     <wire from="(250,180)" to="(250,190)"/>
     <wire from="(200,150)" to="(240,150)"/>
+    <comp lib="0" loc="(160,120)" name="Pin">
+      <a name="tristate" val="false"/>
+      <a name="label" val="LoadAddress"/>
+    </comp>
     <comp lib="1" loc="(230,170)" name="NOT Gate">
       <a name="size" val="20"/>
     </comp>
@@ -159,11 +193,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     </comp>
     <comp lib="0" loc="(240,200)" name="Clock">
       <a name="facing" val="north"/>
-    </comp>
-    <comp lib="0" loc="(200,110)" name="Pin">
-      <a name="facing" val="south"/>
-      <a name="tristate" val="false"/>
-      <a name="label" val="LoadAddress"/>
     </comp>
     <comp lib="0" loc="(270,200)" name="Pin">
       <a name="facing" val="north"/>
